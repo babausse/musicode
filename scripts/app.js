@@ -27,39 +27,7 @@ function init() {
   var canvas = document.querySelector('.visualizer');
   var canvasCtx = canvas.getContext("2d");
 
-  visualize(analyser);
+  const visualizer = new Visualizer(analyser, canvasCtx);
 
-  function visualize(analyser) {
-    WIDTH = canvas.width;
-    HEIGHT = canvas.height;
-
-    analyser.fftSize = 32;
-    const bufferSize = analyser.frequencyBinCount;
-    var bufferData = new Uint8Array(bufferSize);
-
-
-    canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-
-    var drawAlt = function() {
-      console.log(bufferData)
-      drawVisual = requestAnimationFrame(drawAlt);
-
-      analyser.getByteFrequencyData(bufferData);
-
-      canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-      canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-
-      var barWidth = (WIDTH / bufferSize) * 2.5;
-      var x = 0;
-
-      bufferData.forEach(data => {
-
-        canvasCtx.fillStyle = 'rgb(255,50,50)';
-        canvasCtx.fillRect(x,HEIGHT-data/2,barWidth,data/2);
-
-        x += barWidth + 1;
-      })
-    }
-    drawAlt();
-  }
+  visualizer.start()
 }
