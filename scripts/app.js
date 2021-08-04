@@ -21,69 +21,27 @@ function init() {
   heading.textContent = 'Musicode';
   document.body.removeEventListener('click', init)
 
-  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-
-  var analyser = audioCtx.createAnalyser();
-  analyser.maxDecibels = -20;
-  analyser.minDecibels = -40;
-  analyser.smoothingTimeConstant = 0.5;
-
-
-  function createBiquad(frequency) {
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = "bandpass"
-    filter.frequency.value = frequency;
-    filter.Q.value = 1e6;
-    return filter;
-  }
-
-  function createSource(frequency) {
-    const source = audioCtx.createOscillator()
-    source.frequency.setValueAtTime(frequency, audioCtx.currentTime)
-    return source
-  }
-
-  function startOscillators(frequency) {
-    freqs.forEach(freq => {
-      const source = createSource(freq)
-      const filter = createBiquad(freq)
-      source.connect(filter)
-      filter.connect(gainNode)
-      source.start()
-    })
-  }
-
-  function startMedia() {
-    const video = document.querySelector('audio')
-    const source = audioCtx.createMediaElementSource(video)
-    console.log(source)
-    source.connect(gainNode)
-  }
-
-  var gainNode = audioCtx.createGain();
+  const audio = document.querySelector("audio")
+  const analyser = createAnalyser(ctx => ctx.createMediaElementSource(audio))
 
   var canvas = document.querySelector('.visualizer');
   var canvasCtx = canvas.getContext("2d");
 
-  startMedia()
+  visualize(analyser);
 
-  gainNode.connect(analyser);
-  analyser.connect(audioCtx.destination);
-
-  visualize();
-
-  function visualize() {
+  function visualize(analyser) {
     WIDTH = canvas.width;
     HEIGHT = canvas.height;
 
-    analyser.fftSize = 4096;
+    analyser.fftSize = 32;
     const bufferSize = analyser.frequencyBinCount;
     var bufferData = new Uint8Array(bufferSize);
+
 
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
     var drawAlt = function() {
+      console.log(bufferData)
       drawVisual = requestAnimationFrame(drawAlt);
 
       analyser.getByteFrequencyData(bufferData);
