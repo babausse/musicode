@@ -11,16 +11,13 @@
 </head>
 <body>
   <div class="wrapper">
-    <header>
-      <h1>Musicode</h1>
-    </header>
-    <audio controls="control">
-      <source src="audio/concert-crowd.mp3"></source>
-    </audio>
-    <canvas class="visualizer" width="860" height="100"></canvas> 
+    <audio crossorigin="anonymous" controls src="audio/bass_note.wav" type="audio/wave"></audio>
+    <canvas class="visualizer" width="860" height="400"></canvas>
+    <div class="frequency"></div>
   </div>
-  <script src="lib/create_analyser.js"></script>
-  <script src="lib/create_visualizer.js"></script>
+  <% scripts.each do |script| %>
+    <script src="<%= script %>"></script>
+  <% end %>
   <script src="scripts/app.js"></script>
 </body>
 </html>
