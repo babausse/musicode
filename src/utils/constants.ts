@@ -1,0 +1,10 @@
+export const BASELINE = 80;
+export const COLOR = "rgb(100, 100, 100)";
+export const FREQ_GAP = 3000/4096
+export const FFT_SIZE = 4096;
+export const MAX_COLOR = "rgb(0, 255, 0)";
+export const MAX_DB = 0;
+export const MAX_VALUE = 255;
+export const MIN_DB = -100;
+export const SAMPLE_RATE = 3*1e3;
+export const SMOOTHING_CONSTANT = 0.01;

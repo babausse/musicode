@@ -4,20 +4,16 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>Musicode</title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-  <link href='https://fonts.googleapis.com/css?family=Righteous|Nova+Square' rel='stylesheet' type='text/css'>
-  <link href="styles/normalize.css" rel="stylesheet" type="text/css">
   <link href="styles/app.css" rel="stylesheet" type="text/css">
 </head>
 <body>
   <div class="wrapper">
-    <audio crossorigin="anonymous" controls src="audio/bass_note.wav" type="audio/wave"></audio>
     <canvas class="visualizer" width="860" height="400"></canvas>
-    <div class="frequency"></div>
+    <div>
+      <div class="frequency indicator"></div>
+      <div class="note indicator"></div>
+    </div>
   </div>
-  <% scripts.each do |script| %>
-    <script src="<%= script %>"></script>
-  <% end %>
-  <script src="scripts/app.js"></script>
+  <script src="dist/bundle.min.js"></script>
 </body>
 </html>
