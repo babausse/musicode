@@ -3,8 +3,8 @@ require 'sinatra/base'
 class Controller < Sinatra::Base
 
   configure do
-    set :views, '.'
-    set :public_folder, '.'
+    set :views, './views'
+    set :public_folder, './public'
   end
 
   get '/' do
